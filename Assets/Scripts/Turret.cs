@@ -9,12 +9,16 @@ public class Turret : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform turretRotationPoint;
     [SerializeField] private LayerMask enemyMask;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firingPoint;
 
     [Header("Attributes")]
     [SerializeField] private float targetingRange = 5.0f;
     [SerializeField] private float rotationSpeed = 5.0f;
+    [SerializeField] private float bps = 1f;//Bullet per second
 
     private Transform target;
+    private float timeUntilFire;
     private void OnDrawGizmosSelected()
     {
         Handles.color = Color.cyan;
@@ -39,6 +43,22 @@ public class Turret : MonoBehaviour
         {
             target = null;
         }
+        else
+        {
+            timeUntilFire += Time.deltaTime;
+            if(timeUntilFire >= 1f / bps)
+            {
+                Shoot();
+                timeUntilFire = 0;
+            }
+        }
+    }
+
+    private void Shoot()
+    {
+        GameObject bulletObj = Instantiate(bulletPrefab,firingPoint.position,Quaternion.identity);
+        Bullet bulletScript = bulletObj.GetComponent<Bullet>();
+        bulletScript.SetTarget(target);
     }
 
     private bool IsTargetInRange()
