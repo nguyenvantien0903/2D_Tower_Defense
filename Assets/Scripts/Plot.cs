@@ -27,8 +27,13 @@ public class Plot : MonoBehaviour
     private void OnMouseDown()
     {
         if (tower != null) return;
-        GameObject towerToBuild = BuildManager.instance.GetSelectedTower();
-        tower = Instantiate(towerToBuild, transform.position,Quaternion.identity);
+        Tower towerToBuild = BuildManager.instance.GetSelectedTower();
+        if(towerToBuild.cost > LevelManager.instance.currency)
+        {
+            return;
+        }
+        LevelManager.instance.SpendCurrency(towerToBuild.cost);
+        tower = Instantiate(towerToBuild.prefab, transform.position,Quaternion.identity);
     }
     // Update is called once per frame
     void Update()
