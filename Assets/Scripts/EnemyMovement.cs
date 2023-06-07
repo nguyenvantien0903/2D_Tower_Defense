@@ -28,9 +28,20 @@ public class EnemyMovement : MonoBehaviour
             //Neu da di den cuoi
             if(pathIndex==LevelManager.instance.path.Length)
             {
+                EnemySpawner.OnEnemyDestroy.Invoke();
                 Destroy(gameObject);
                 return;
             }
+            else
+            {
+                target = LevelManager.instance.path[pathIndex];
+            }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 direction = (target.position - transform.position).normalized;
+        rb.velocity= direction * moveSpeed;
     }
 }
