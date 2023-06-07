@@ -12,17 +12,19 @@ public class EnemySpawner : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private int baseEnemies = 8;//so luong quai khi de nhat
     [SerializeField] private float enemiesPerSecond = 1f;
+    [SerializeField] private float enemiesPerSecondMax = 15f;
     [SerializeField] private float timeBetweenWaves = 2f;
     [SerializeField] private float difficultyScalingFactor = 0.75f;
     // Start is called before the first frame update
 
     [Header("Events")]
-    public static UnityEvent OnEnemyDestroy = new UnityEvent();
+    public static UnityEvent OnEnemyDestroy = new();
 
     private int currentWave = 1;
     private float timeSinceLastSpawn;
     private int enemiesAlive;
     private int enemiesLeftToSpawn;
+    private float eps;//enemy per second
     private bool isSpawning = false;
 
     private void Awake()
@@ -46,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
         if(!isSpawning) return;
 
         timeSinceLastSpawn += Time.deltaTime;
-        if(timeSinceLastSpawn >= (1f / enemiesPerSecond) && enemiesLeftToSpawn > 0){
+        if(timeSinceLastSpawn >= (1f / eps) && enemiesLeftToSpawn > 0){
             SpawnEnemy();
             enemiesLeftToSpawn--;
             enemiesAlive++;
@@ -68,7 +70,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject prefabToSpawn = enemyPrefabs[0];
+        int index = UnityEngine.Random.Range(0,enemyPrefabs.Length);
+        GameObject prefabToSpawn = enemyPrefabs[index];
         Instantiate(prefabToSpawn,LevelManager.instance.startPoint.position,Quaternion.identity);
     }
 
@@ -76,11 +79,17 @@ public class EnemySpawner : MonoBehaviour
     {
         return Mathf.RoundToInt(baseEnemies* Mathf.Pow(currentWave,difficultyScalingFactor));
     }
+
+    private float EnemiesPerSecond()
+    {
+        return Mathf.Clamp(enemiesPerSecond * Mathf.Pow(currentWave, difficultyScalingFactor),0f,enemiesPerSecondMax);
+    }
     private IEnumerator StartWave()
     {
         yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning= true;
         enemiesLeftToSpawn = EnemiesPerWave();
+        eps=EnemiesPerSecond();
     }
 
 }
