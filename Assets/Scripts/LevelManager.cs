@@ -9,6 +9,26 @@ public class LevelManager : MonoBehaviour
     public Transform startPoint;
     public Transform[] path;
 
+    public int currency;
+
+    public void IncreaseCurrency(int amount)
+    {
+        currency += amount;
+    }
+
+    public bool SpendCurrency(int amount)
+    {
+        if(amount<=currency)
+        {
+            currency -= amount;
+            return true;
+        }
+        else
+        {
+            Debug.Log("Not enough money");
+            return false;
+        }
+    }
     private void Awake()
     {
         instance = this;
@@ -16,7 +36,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        currency = 10000;
     }
 
     // Update is called once per frame

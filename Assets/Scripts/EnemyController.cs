@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField] private int hitPoints = 2;
-
+    [SerializeField] private int currencyWorth = 50;
     private bool isDestroyed = false;
     public void TakeDamage(int dmg)
     {
@@ -14,6 +14,7 @@ public class Health : MonoBehaviour
         if (hitPoints <= 0 && !isDestroyed)
         {
             EnemySpawner.OnEnemyDestroy.Invoke();
+            LevelManager.instance.IncreaseCurrency(currencyWorth);
             Destroy(gameObject);
             isDestroyed = true;
         }
