@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Turret : MonoBehaviour
 {
@@ -11,14 +12,23 @@ public class Turret : MonoBehaviour
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firingPoint;
+    [SerializeField] private GameObject upgradeUI;
+    [SerializeField] private Button upgradeButton;
+    [SerializeField] private Button sellButton;
 
     [Header("Attributes")]
     [SerializeField] private float targetingRange = 5.0f;
     [SerializeField] private float rotationSpeed = 5.0f;
     [SerializeField] private float bps = 1f;//Bullet per second
+    [SerializeField] private int baseUpgradeCost = 100;
+    [SerializeField] private float upgradeScalingFactor = 0.8f;
 
     private Transform target;
     private float timeUntilFire;
+
+    private float bpsBase;
+    private float targetingRangeBase;
+    private int level = 1;
     private void OnDrawGizmosSelected()
     {
         Handles.color = Color.cyan;
@@ -27,7 +37,8 @@ public class Turret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        bpsBase = bps;
+        targetingRangeBase = targetingRange;
     }
 
     // Update is called once per frame
@@ -80,5 +91,50 @@ public class Turret : MonoBehaviour
         {
             target = hits[0].transform;
         }
+    }
+
+    public void OpenUpgradeUI()
+    {
+        upgradeUI.SetActive(true);
+    }
+
+    public void CloseUpgradeUI()
+    {
+        upgradeUI.SetActive(false);
+        UIManager.Instance.SetHoveringState(false);
+    }
+
+    public void Upgrade()
+    {
+        int upgradeCost = CalculateUpgradeCost();
+        if (upgradeCost > LevelManager.instance.currency) return;
+        LevelManager.instance.SpendCurrency(upgradeCost);
+        level++;
+        bps=CalculateUpgradeBPS();
+        targetingRange=CalculateUpgradeRange();
+        CloseUpgradeUI();
+    }
+
+    public void Sell()
+    {
+        int upgradeCost = CalculateUpgradeCost();
+        LevelManager.instance.IncreaseCurrency(upgradeCost/2);
+        Destroy(gameObject);
+        CloseUpgradeUI();
+    }
+
+    private int CalculateUpgradeCost()
+    {
+        return Mathf.RoundToInt(baseUpgradeCost * Mathf.Pow(level, upgradeScalingFactor));
+    }
+
+    private float CalculateUpgradeBPS()
+    {
+        return bpsBase*Mathf.Pow(level, upgradeScalingFactor);
+    }
+
+    private float CalculateUpgradeRange()
+    {
+        return targetingRangeBase * Mathf.Pow(level, upgradeScalingFactor);
     }
 }

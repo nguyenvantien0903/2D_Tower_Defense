@@ -8,7 +8,8 @@ public class Plot : MonoBehaviour
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Color hoverColor;
 
-    private GameObject tower;
+    private GameObject towerObj;
+    private Turret turret;
     private Color startColor;
     // Start is called before the first frame update
     void Start()
@@ -26,14 +27,20 @@ public class Plot : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (tower != null) return;
+        if (UIManager.Instance.IsHoveringUI()) return;
+        if (towerObj != null)
+        {
+            turret.OpenUpgradeUI();
+            return;
+        }
         Tower towerToBuild = BuildManager.instance.GetSelectedTower();
         if(towerToBuild.cost > LevelManager.instance.currency)
         {
             return;
         }
         LevelManager.instance.SpendCurrency(towerToBuild.cost);
-        tower = Instantiate(towerToBuild.prefab, transform.position,Quaternion.identity);
+        towerObj = Instantiate(towerToBuild.prefab, transform.position,Quaternion.identity);
+        turret = towerObj.GetComponent<Turret>();
     }
     // Update is called once per frame
     void Update()
