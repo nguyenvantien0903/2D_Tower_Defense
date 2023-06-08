@@ -16627,6 +16627,8 @@ MonoBehaviour:
   - {fileID: 1356158237533126239, guid: 4e5172bcc50cf1347b5ebeb5c458a7c4, type: 3}
   - {fileID: 1356158237533126239, guid: dde4df0b66b66064ab0d39649a66a945, type: 3}
   - {fileID: 1356158237533126239, guid: 4e5172bcc50cf1347b5ebeb5c458a7c4, type: 3}
+  - {fileID: 2356964163074832894, guid: 4619fba754dd6474aa4baa1dab143ca7, type: 3}
+  - {fileID: 2356964163074832894, guid: 4619fba754dd6474aa4baa1dab143ca7, type: 3}
   baseEnemies: 8
   enemiesPerSecondBase: 1
   enemiesPerSecondMax: 15
