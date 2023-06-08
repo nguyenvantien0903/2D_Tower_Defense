@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] private int baseEnemies = 8;//so luong quai khi de nhat
-    [SerializeField] private float enemiesPerSecond = 1f;
+    [SerializeField] private float enemiesPerSecondBase = 1f;
     [SerializeField] private float enemiesPerSecondMax = 15f;
     [SerializeField] private float timeBetweenWaves = 2f;
     [SerializeField] private float difficultyScalingFactor = 0.75f;
@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
     private float timeSinceLastSpawn;
     private int enemiesAlive;
     private int enemiesLeftToSpawn;
-    private float eps;//enemy per second
+    private float enemiesPerSecondEachWay;//enemy per second
     private bool isSpawning = false;
 
     private void Awake()
@@ -48,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
         if(!isSpawning) return;
 
         timeSinceLastSpawn += Time.deltaTime;
-        if(timeSinceLastSpawn >= (1f / eps) && enemiesLeftToSpawn > 0){
+        if(timeSinceLastSpawn >= (1f / enemiesPerSecondEachWay) && enemiesLeftToSpawn > 0){
             SpawnEnemy();
             enemiesLeftToSpawn--;
             enemiesAlive++;
@@ -82,14 +82,14 @@ public class EnemySpawner : MonoBehaviour
 
     private float EnemiesPerSecond()
     {
-        return Mathf.Clamp(enemiesPerSecond * Mathf.Pow(currentWave, difficultyScalingFactor),0f,enemiesPerSecondMax);
+        return Mathf.Clamp(enemiesPerSecondBase * Mathf.Pow(currentWave, difficultyScalingFactor),0f,enemiesPerSecondMax);
     }
     private IEnumerator StartWave()
     {
         yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning= true;
         enemiesLeftToSpawn = EnemiesPerWave();
-        eps=EnemiesPerSecond();
+        enemiesPerSecondEachWay=EnemiesPerSecond();
     }
 
 }

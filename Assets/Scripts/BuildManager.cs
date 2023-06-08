@@ -16,7 +16,7 @@ public class BuildManager : MonoBehaviour
         instance= this;
     }
 
-    public void SetSelctedTower(int selectedTower)
+    public void SetSelectedTower(int selectedTower)
     {
         this.selectedTower= selectedTower;
     }

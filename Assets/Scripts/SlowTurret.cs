@@ -29,12 +29,12 @@ public class SlowTurret : MonoBehaviour
         timeUntilFire += Time.deltaTime;
         if (timeUntilFire >= 1f / aps)
         {
-            FreezeEnemies();
+            SlowEnemies();
             timeUntilFire = 0;
         }
     }
 
-    private void FreezeEnemies()
+    private void SlowEnemies()
     {
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask);
         if (hits.Length > 0)
