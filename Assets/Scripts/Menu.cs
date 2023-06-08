@@ -8,12 +8,14 @@ public class Menu : MonoBehaviour
     [Header("References")]
     [SerializeField] TextMeshProUGUI currencyUI;
     [SerializeField] Animator anim;
+
+    private string animVariableIsMenuOpen = "isMenuOpen";
     private bool isMenuOpen = true;
 
     public void ToggleMenu()
     {
         isMenuOpen = !isMenuOpen;
-        anim.SetBool("MenuOpen", isMenuOpen);
+        anim.SetBool(animVariableIsMenuOpen, isMenuOpen);
     }
     private void OnGUI()
     {
