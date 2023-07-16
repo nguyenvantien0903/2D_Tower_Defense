@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static EnemySpawner instance;
+
     [Header("References")]
     [SerializeField] private GameObject[] enemyPrefabs;
 
@@ -14,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float enemiesPerSecondBase = 1f;
     [SerializeField] private float enemiesPerSecondMax = 15f;
     [SerializeField] private float timeBetweenWaves = 2f;
-    [SerializeField] private float difficultyScalingFactor = 0.75f;
+    [SerializeField] private float difficultyScalingFactor = 2f;
     // Start is called before the first frame update
 
     [Header("Events")]
@@ -30,6 +32,11 @@ public class EnemySpawner : MonoBehaviour
     private void Awake()
     {
         OnEnemyDestroy.AddListener(EnemyDestroyed);
+    }
+
+    public void harder()
+    {
+        difficultyScalingFactor++;
     }
 
     private void EnemyDestroyed()
@@ -95,6 +102,7 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator StartWave()
     {
         yield return new WaitForSeconds(timeBetweenWaves);
+        LevelManager.instance.waves++;
         isSpawning= true;
         enemiesLeftToSpawn = EnemiesPerWave();
         enemiesPerSecondEachWay = EnemiesPerSecond();

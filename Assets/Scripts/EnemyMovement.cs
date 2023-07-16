@@ -31,6 +31,7 @@ public class EnemyMovement : MonoBehaviour
             if(pathIndex==LevelManager.instance.path.Length)
             {
                 EnemySpawner.OnEnemyDestroy.Invoke();
+                LevelManager.instance.DecreaseHealth(1);
                 Destroy(gameObject);
                 return;
             }

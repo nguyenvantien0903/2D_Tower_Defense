@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9466404, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -190,17 +190,11 @@ MonoBehaviour:
   upgradeUI: {fileID: 3463960362543337135}
   upgradeButton: {fileID: 1312267305701268048}
   sellButton: {fileID: 4162928868697092519}
-  Gun: {fileID: 6413857367913238215}
   targetingRange: 3
   rotationSpeed: 300
   bps: 2
   baseUpgradeCost: 100
   upgradeScalingFactor: 0.4
-  upgradeGun:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &2378211487047391090
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9716981, g: 0.01375042, b: 0.01375042, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
