@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7588033149937207708}
   - component: {fileID: -3867604147443612393}
   m_Layer: 6
-  m_Name: Leafbug_0
+  m_Name: MagmaCrab-Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,11 +30,11 @@ Transform:
   m_GameObject: {fileID: 2356964163074832894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.1, y: -1.07, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3128068033681572743
 SpriteRenderer:
@@ -77,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -924496278, guid: 5654bc71a06e91444af5c9c292b08913, type: 3}
-  m_Color: {r: 0.0040939935, g: 0.8679245, b: 0.08431443, a: 1}
+  m_Sprite: {fileID: 1528650609, guid: 8cfbbcb85f7291748879770290e9fae4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -172,8 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba82f11930b54d419f0647e03aaabbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 5
-  currencyWorth: 50
+  hitPoints: 10
+  currencyWorth: 200
 --- !u!114 &-3867604147443612393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,4 +187,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5010729881450798683}
-  moveSpeed: 3
+  moveSpeed: 1
