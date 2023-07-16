@@ -29,11 +29,7 @@ public class Turret : MonoBehaviour
     private float bpsBase;
     private float targetingRangeBase;
     private int level = 1;
-    private void OnDrawGizmosSelected()
-    {
-        Handles.color = Color.cyan;
-        Handles.DrawWireDisc(transform.position,transform.forward, targetingRange);
-    }
+
     // Start is called before the first frame update
     void Start()
     {
