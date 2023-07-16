@@ -107,8 +107,14 @@ public class Turret : MonoBehaviour
     public void Upgrade()
     {
         int upgradeCost = CalculateUpgradeCost();
-        if (upgradeCost > LevelManager.instance.currency) return;
-        LevelManager.instance.SpendCurrency(upgradeCost);
+        if (upgradeCost > LevelManager.instance.currency)
+        {
+            LevelManager.instance.SpendCurrency(upgradeCost, "Not enough money");
+        }
+        else
+        {
+            LevelManager.instance.SpendCurrency(upgradeCost, "Upgrade successfully");
+        }
         level++;
         bps=CalculateUpgradeBPS();
         targetingRange=CalculateUpgradeRange();
@@ -118,7 +124,7 @@ public class Turret : MonoBehaviour
     public void Sell()
     {
         int upgradeCost = CalculateUpgradeCost();
-        LevelManager.instance.IncreaseCurrency(upgradeCost/2);
+        LevelManager.instance.IncreaseCurrency(upgradeCost/2, "Sell successfully");
         Destroy(gameObject);
         CloseUpgradeUI();
     }

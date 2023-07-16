@@ -89,7 +89,7 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning= true;
         enemiesLeftToSpawn = EnemiesPerWave();
-        enemiesPerSecondEachWay=EnemiesPerSecond();
+        enemiesPerSecondEachWay = EnemiesPerSecond();
     }
 
 }

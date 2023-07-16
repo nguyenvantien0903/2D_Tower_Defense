@@ -36,9 +36,13 @@ public class Plot : MonoBehaviour
         Tower towerToBuild = BuildManager.instance.GetSelectedTower();
         if(towerToBuild.cost > LevelManager.instance.currency)
         {
+            LevelManager.instance.SpendCurrency(towerToBuild.cost, "Not enough money");
             return;
         }
-        LevelManager.instance.SpendCurrency(towerToBuild.cost);
+        else
+        {
+            LevelManager.instance.SpendCurrency(towerToBuild.cost, "Build successfully");
+        }
         towerObj = Instantiate(towerToBuild.prefab, transform.position,Quaternion.identity);
         turret = towerObj.GetComponent<Turret>();
     }

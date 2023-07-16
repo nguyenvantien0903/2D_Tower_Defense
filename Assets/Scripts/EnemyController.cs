@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
         if (hitPoints <= 0 && !isDestroyed)
         {
             EnemySpawner.OnEnemyDestroy.Invoke();
-            LevelManager.instance.IncreaseCurrency(currencyWorth);
+            LevelManager.instance.IncreaseCurrency(currencyWorth,string.Empty);
             Destroy(gameObject);
             isDestroyed = true;
         }
