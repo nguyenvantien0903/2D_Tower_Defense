@@ -12,10 +12,11 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int bulletDamage = 1;
 
     private Transform target;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     public void SetTarget(Transform _target)
@@ -29,11 +30,17 @@ public class Bullet : MonoBehaviour
         if(!target) return;
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * bulletSpeed;
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         collision.gameObject.GetComponent<EnemyController>().TakeDamage(bulletDamage);
+        Destroy(gameObject);
+    }
+
+    private void OnBecameInvisible()
+    {
         Destroy(gameObject);
     }
 }
